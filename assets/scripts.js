@@ -1,26 +1,56 @@
 var schedule = $('#schedule')
 var saveBox = $('#saveBox')
 var sche = document.querySelector('#schedule')
+var timeBlock = document.querySelector('.container')
 var currentTime = moment()
+var currentDay = moment().format('MMMDDYY')
 
-var activity = []
-if (JSON.parse(localStorage.getItem('activity') !== null)) { activities = JSON.parse(localStorage.getItem('activities')) }
+
+var WorkdayActivities = []
+if (JSON.parse(localStorage.getItem('WorkdayActivities') !== null)) { WorkdayActivities = JSON.parse(localStorage.getItem('WorkdayActivities')) }
 // var Saved = localStorage.getItem.parse('saved')
 console.log(currentTime.format('MMM'))
 var timeslot = []
 
 for (var i = 0; i < 24; i++) {
-    var hourBox = $('<div>').addClass('col-12 saveBox').attr('style', 'display:flex').attr('id', 'saveBox');
+    var hourBox = $('<div>').addClass('col-12 saveBox').attr('style', 'display:flex');
     var timeSpan = $('<span>').addClass('col-1');
-    // var saveIcon = $('<i>').addClass('col-3 fas fa-save d-flex justify-content-center').attr('id', "save" + i + currentTime.format('MMMdoYY'));
-    var saveIcon = $('<button>').addClass('button col-1 fas fa-save d-flex justify-content-center');
+    var saveIcon = $('<button>').addClass('col-1 fas fa-save d-flex justify-content-center');
     timeSpan.text(i + ":00");
-    var inputBox = $('<input>').addClass("col-8").attr('type', 'text').attr('id', "box" + i + currentTime.format('MMMdoYY'))
+    var inputBox = $('<input>').addClass("col-8").attr('type', 'text').attr('id', i + currentDay)
     schedule.append(hourBox.append(timeSpan).append(inputBox).append(saveIcon));
     // timeslot[i] = $(`#box${i}${currentTime.format('MMMdoYY')}`)
 }
-function test() { console.log('test') }
-$('.saveBox').on('click', '.fa-save', test);
+
+var newArray = []
+function saveData(e) {
+    e.preventDefault();
+    var clicked = $(e.target);
+    console.log(clicked);
+    var inputValue = $(this).prev('input').val()
+    var inputId = $(this).prev('input').attr('id')
+    console.log(inputId)
+    newObject = { inputId, inputValue }
+    WorkdayActivities.push(newObject)
+    localStorage.setItem('WorkdayActivities', JSON.stringify(WorkdayActivities));
+}
+
+$('.saveBox').on('click', '.fa-save', saveData);
+
+
+
+function search(key, objects) {
+
+
+}
+
+for (var i = 0; i < 24; i++) {
+    for (var x = 0; x < WorkdayActivities.length; x++)
+        if (document.getElementById(`${i}${currentDay}`).id === WorkdayActivities[x].inputId) {
+            document.getElementById(`${i}${currentDay}`).setAttribute('value', WorkdayActivities[x].inputValue)
+        }
+}
+
 
 
 // for (var i = 0; i < 24; i++) {
@@ -35,9 +65,6 @@ $('.saveBox').on('click', '.fa-save', test);
 
 // $('.timeslot').on('click', console.log('test'))
 
-// for (var i = 0; i < 24; i++) {
-//     saveIcons = $(`save${i}${currentTime.format('MMMdoYY')}`)
-//     inputValue = $(`save${i}${currentTime.format('MMMdoYY')}`)
 
 // }
 // // // schedule.children().children().children().attr('value', 'test')
