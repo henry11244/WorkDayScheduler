@@ -7,8 +7,6 @@ var currentTime = moment()
 var currentDay = moment().format('MMMDDYY')
 var currentHour = moment().hour()
 
-
-
 // interval for refreshing clock and colors
 setInterval(function () {
     timeBlock.text(moment());
@@ -61,7 +59,7 @@ for (var i = 0; i < 24; i++) {
         }
 }
 
-// weather widget
+// weather widget, codes below obtained from 'weatherwidget.io'
 !function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) {
         js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js';
