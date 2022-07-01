@@ -50,11 +50,11 @@ The goal of this project was to make a user friendly, task manager that can be u
 ![Alt Text](assets/WorkDayScheduler.gif)
 
 
-Once you have navagated to the webpage, 
+Once you have navagated to the webpage: 
 
-- You are presented with the current date, time and weather for the upcoming week
-- You are able to navagate down to the corresponding out block within the day and schedule events   
-- Once you click the save icon, any events are saved within your local storage which will be retrieved each time the page loads..
+- You are presented with the current date, time and weather for the upcoming week.
+- You are able to navagate down to the corresponding hour block within the day and schedule events.   
+- Once you click the save icon, any events are saved within your local storage which will be retrieved each time the page loads.
 
 
 
