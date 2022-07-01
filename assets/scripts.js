@@ -5,11 +5,23 @@ var sche = document.querySelector('#schedule')
 var timeBlock = $('#currentDay')
 var currentTime = moment()
 var currentDay = moment().format('MMMDDYY')
-var currentHour = currentTime.format('hh')
+var currentHour = moment().hour()
 
 
-setInterval(function () { timeBlock.text(moment()) }, 1000)
 
+// interval for refreshing clock and colors
+setInterval(function () {
+    timeBlock.text(moment());
+    // color for timeblocks
+    for (var i = 0; i < 24; i++) {
+        if (i < currentHour) {
+            document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(75, 75, 75)')
+        } else if (i < 9 || i > 17) {
+            document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(180, 179, 179)')
+        } else if (i == currentHour) { document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(215, 0, 0)') }
+        else { document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(0, 241, 0)') };
+    }
+}, 100)
 
 // Pulls saved data from local storage
 var WorkdayActivities = []
@@ -17,10 +29,10 @@ if (JSON.parse(localStorage.getItem('WorkdayActivities') !== null)) { WorkdayAct
 
 // Function to populate time container
 for (var i = 0; i < 24; i++) {
-    var hourBox = $('<div>').addClass('col-12 saveBox').attr('style', 'display:flex').attr('id', i);
+    var hourBox = $('<div>').addClass('col-12 saveBox ml-2').attr('style', 'display:flex').attr('id', i);
     var timeSpan = $('<span>').addClass('col-1');
-    var saveIcon = $('<button>').addClass('col-1 fas fa-save d-flex justify-content-center');
-    timeSpan.text(i + ":00");
+    var saveIcon = $('<button>').addClass('col-1 fas fa-save d-flex justify-content-center align-items-center save');
+    timeSpan.text(i + ":00").addClass('d-flex justify-content-center align-items-center font-weight-bold');
     var inputBox = $('<input>').addClass(`col-10`).attr('type', 'text').attr('id', i + currentDay).attr('name', i)
     schedule.append(hourBox.append(timeSpan).append(inputBox).append(saveIcon));
 }
@@ -49,14 +61,10 @@ for (var i = 0; i < 24; i++) {
         }
 }
 
-// color for timeblocks
-for (var i = 0; i < 24; i++) {
-    if (i < 9 || i > 17) {
-        document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(180, 179, 179)')
+// weather widget
+!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) {
+        js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js';
+        fjs.parentNode.insertBefore(js, fjs);
     }
-    else if (i < currentHour) {
-        document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(75, 75, 75)')
-    } else if (i == currentHour) { document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(215, 137, 173)') }
-    else { document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(138, 241, 215)') };
-
-}
+}(document, 'script', 'weatherwidget-io-js');

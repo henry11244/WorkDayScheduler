@@ -74,9 +74,18 @@ textarea {
 
 div {
   border: dotted .5px rgb(75, 75, 75);
-  height: 10vh;
+  height: 15vh;
 }
 
 #schdeule {
-  border: none
+  border: none;
+  color: rgb(0, 255, 0)
+}
+
+.save:hover {
+  background-color: yellow;
+}
+
+.save:active {
+  background-color: red;
 }
