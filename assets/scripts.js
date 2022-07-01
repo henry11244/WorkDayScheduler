@@ -2,10 +2,14 @@
 var schedule = $('#schedule')
 var saveBox = $('#saveBox')
 var sche = document.querySelector('#schedule')
-var timeBlock = document.querySelector('.container')
+var timeBlock = $('#currentDay')
 var currentTime = moment()
 var currentDay = moment().format('MMMDDYY')
 var currentHour = currentTime.format('hh')
+
+
+setInterval(function () { timeBlock.text(moment()) }, 1000)
+
 
 // Pulls saved data from local storage
 var WorkdayActivities = []
@@ -17,7 +21,7 @@ for (var i = 0; i < 24; i++) {
     var timeSpan = $('<span>').addClass('col-1');
     var saveIcon = $('<button>').addClass('col-1 fas fa-save d-flex justify-content-center');
     timeSpan.text(i + ":00");
-    var inputBox = $('<input>').addClass(`col-8`).attr('type', 'text').attr('id', i + currentDay).attr('name', i)
+    var inputBox = $('<input>').addClass(`col-10`).attr('type', 'text').attr('id', i + currentDay).attr('name', i)
     schedule.append(hourBox.append(timeSpan).append(inputBox).append(saveIcon));
 }
 
@@ -45,13 +49,14 @@ for (var i = 0; i < 24; i++) {
         }
 }
 
+// color for timeblocks
 for (var i = 0; i < 24; i++) {
     if (i < 9 || i > 17) {
-        document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: grey')
+        document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(180, 179, 179)')
     }
     else if (i < currentHour) {
-        document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: grey')
-    } else if (i == currentHour) { document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: red') }
-    else { document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: green') };
+        document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(75, 75, 75)')
+    } else if (i == currentHour) { document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(215, 137, 173)') }
+    else { document.querySelector(`[name="${i}"]`).setAttribute('style', 'background-color: rgb(138, 241, 215)') };
 
 }

@@ -73,9 +73,10 @@ textarea {
 
 
 div {
-  border: solid 5px grey
+  border: dotted .5px rgb(75, 75, 75);
+  height: 10vh;
 }
 
-section {
+#schdeule {
   border: none
 }
